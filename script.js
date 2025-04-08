@@ -24,8 +24,10 @@ const citySelect = document.getElementById("city");
 const parkSelect = document.getElementById("park");
 const programSelect = document.getElementById("program");
 const peopleCountInput = document.getElementById("peopleCount");
+
 const prepaymentSpan = document.getElementById("prepayment");
 const remainderSpan = document.getElementById("remainder");
+const fullAmountSpan = document.getElementById("fullAmount");
 
 citySelect.addEventListener("change", () => {
   const city = citySelect.value;
@@ -77,13 +79,13 @@ function calculate() {
     const fullPay = people * program.price;
     const rest = fullPay - minPay;
 
-    const prepaymentSpan = document.getElementById("prepayment");
-    const remainderSpan = document.getElementById("remainder");
-    const fullAmountSpan = document.getElementById("fullAmount");
-
     prepaymentSpan.textContent = minPay.toLocaleString("ru-RU");
-    remainderSpan.textContent = rest > 0 ? rest.toLocaleString("ru-RU") : 0;
+    remainderSpan.textContent = rest > 0 ? rest.toLocaleString("ru-RU") : "0";
     fullAmountSpan.textContent = fullPay.toLocaleString("ru-RU");
+  } else {
+    prepaymentSpan.textContent = "-";
+    remainderSpan.textContent = "-";
+    fullAmountSpan.textContent = "-";
   }
 }
 
