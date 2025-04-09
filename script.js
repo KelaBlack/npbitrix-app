@@ -29,10 +29,13 @@ function filterPrograms() {
   const dayType = getDayType(dateStr);
 
   const programs = data[city][park].filter(p => {
-    const matchDay = p.days === "Ежедневно" || p.days === dayType;
-    const matchOccasion = occasion === "Прогулка по билетам" ? p.walkOnly : true;
-    return matchDay && matchOccasion;
-  });
+  const matchDay = p.days === "Ежедневно" || p.days === dayType;
+  const matchOccasion = occasion === "Прогулка по билетам"
+    ? p.walkOnly === true
+    : p.walkOnly !== true;
+  return matchDay && matchOccasion;
+});
+
 
   programs.forEach(p => {
     const opt = document.createElement("option");
