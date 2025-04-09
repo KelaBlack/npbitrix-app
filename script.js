@@ -55,8 +55,22 @@ function calculate() {
 
   const program = data[city]?.[park]?.find(p => p.name === programName);
   if (program) {
-    const minPay = program.fixed || ((program.min || 0) * (program.price || 0));
-    const fullPay = (people || 0) * (program.price || 0);
+    const min = program.min || 0;
+    const price = program.price || 0;
+    const fixed = program.fixed || null;
+
+    let fullPay, minPay;
+
+    if (fixed !== null) {
+      // Пакетное предложение: фиксированная предоплата + цена за каждого сверх минимума
+      minPay = fixed;
+      fullPay = people > min ? fixed + (people - min) * price : fixed;
+    } else {
+      // Обычный расчёт: цена * количество
+      fullPay = people * price;
+      minPay = min * price;
+    }
+
     const rest = fullPay - minPay;
 
     prepaymentSpan.textContent = minPay.toLocaleString("ru-RU");
