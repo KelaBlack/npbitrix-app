@@ -54,21 +54,19 @@ function calculate() {
   const people = parseInt(peopleCountInput.value) || 0;
 
   const program = data[city]?.[park]?.find(p => p.name === programName);
+
   if (program) {
-    const min = program.min || 0;
-    const price = program.price || 0;
-    const fixed = program.fixed || null;
+    let minPay, fullPay;
 
-    let fullPay, minPay;
-
-    if (fixed !== null) {
-      // Пакетное предложение: фиксированная предоплата + цена за каждого сверх минимума
-      minPay = fixed;
-      fullPay = people > min ? fixed + (people - min) * price : fixed;
+    if (program.fixed) {
+      // Если фиксированная сумма — это предоплата за минимум участников
+      minPay = program.fixed;
+      const extraPeople = Math.max(people - (program.min || 0), 0);
+      fullPay = program.fixed + extraPeople * (program.price || 0);
     } else {
-      // Обычный расчёт: цена * количество
-      fullPay = people * price;
-      minPay = min * price;
+      // Стандартный расчёт
+      minPay = (program.min || 0) * (program.price || 0);
+      fullPay = people * (program.price || 0);
     }
 
     const rest = fullPay - minPay;
