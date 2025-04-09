@@ -63,11 +63,10 @@ function calculate() {
 }
 
 // Подгружаем данные из JSON
-fetch('data.json')
+fetch('https://raw.githubusercontent.com/KelaBlack/npbitrix-app/main/data.json')
   .then(response => response.json())
   .then(json => {
     data = json;
-    // если уже выбран город — перезапускаем событие
     const event = new Event("change");
     citySelect.dispatchEvent(event);
   });
