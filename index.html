@@ -8,12 +8,13 @@
 <body>
   <div class="container">
     <h1>Мероприятие</h1>
-    
+
     <label for="city">Город:</label>
     <select id="city">
       <option value="">Выберите город</option>
       <option value="Санкт-Петербург">Санкт-Петербург</option>
       <option value="Москва">Москва</option>
+      <option value="Петрозаводск">Петрозаводск</option>
     </select>
 
     <label for="park">Парк:</label>
@@ -21,9 +22,22 @@
       <option value="">Сначала выберите город</option>
     </select>
 
+    <label for="date">Дата проведения:</label>
+    <input type="date" id="date" />
+
+    <label for="occasion">Повод:</label>
+    <select id="occasion">
+      <option value="">Выберите повод</option>
+      <option value="День рождения">День рождения</option>
+      <option value="Выпускной">Выпускной</option>
+      <option value="Корпоратив (ФЛ)">Корпоратив (ФЛ)</option>
+      <option value="Корпоратив (ЮЛ)">Корпоратив (ЮЛ)</option>
+      <option value="Прогулка по билетам">Прогулка по билетам</option>
+    </select>
+
     <label for="program">Программа:</label>
     <select id="program" disabled>
-      <option value="">Сначала выберите парк</option>
+      <option value="">Сначала выберите парк и дату</option>
     </select>
 
     <label for="peopleCount">Количество участников:</label>
