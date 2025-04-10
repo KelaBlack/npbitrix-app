@@ -52,19 +52,21 @@ function calculate() {
   const park = parkSelect.value;
   const programName = programSelect.value;
   const people = parseInt(peopleCountInput.value) || 0;
+  const dayType = getDayType(dateInput.value); // добавили
 
-  const program = data[city]?.[park]?.find(p => p.name === programName);
+  const program = data[city]?.[park]?.find(p =>
+    p.name === programName &&
+    (p.days === "Ежедневно" || p.days === dayType)
+  );
 
   if (program) {
     let minPay, fullPay;
 
     if (program.fixed) {
-      // Если фиксированная сумма — это предоплата за минимум участников
       minPay = program.fixed;
       const extraPeople = Math.max(people - (program.min || 0), 0);
       fullPay = program.fixed + extraPeople * (program.price || 0);
     } else {
-      // Стандартный расчёт
       minPay = (program.min || 0) * (program.price || 0);
       fullPay = people * (program.price || 0);
     }
@@ -76,6 +78,7 @@ function calculate() {
     fullAmountSpan.textContent = fullPay.toLocaleString("ru-RU");
   }
 }
+
 
 // Подгружаем данные из JSON
 fetch('https://raw.githubusercontent.com/KelaBlack/npbitrix-app/main/data.json')
